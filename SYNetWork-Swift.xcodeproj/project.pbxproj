@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		33CD1F031E8B737C00C96CD2 /* DRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CD1F021E8B737C00C96CD2 /* DRequest.swift */; };
+		33CD1F061E8B98E300C96CD2 /* SYDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CD1F051E8B98E300C96CD2 /* SYDevice.swift */; };
+		33CD1F081E8B98EB00C96CD2 /* SYLocationTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CD1F071E8B98EB00C96CD2 /* SYLocationTool.swift */; };
 		33EA55481E8B56ED00263D53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EA55471E8B56ED00263D53 /* AppDelegate.swift */; };
 		33EA554A1E8B56ED00263D53 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EA55491E8B56ED00263D53 /* ViewController.swift */; };
 		33EA554D1E8B56ED00263D53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33EA554B1E8B56ED00263D53 /* Main.storyboard */; };
@@ -23,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		33CD1F021E8B737C00C96CD2 /* DRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DRequest.swift; sourceTree = "<group>"; };
+		33CD1F051E8B98E300C96CD2 /* SYDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYDevice.swift; sourceTree = "<group>"; };
+		33CD1F071E8B98EB00C96CD2 /* SYLocationTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYLocationTool.swift; sourceTree = "<group>"; };
 		33EA55441E8B56ED00263D53 /* SYNetWork-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SYNetWork-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		33EA55471E8B56ED00263D53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33EA55491E8B56ED00263D53 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +86,8 @@
 		33EA55461E8B56ED00263D53 /* SYNetWork-Swift */ = {
 			isa = PBXGroup;
 			children = (
+				33CD1F071E8B98EB00C96CD2 /* SYLocationTool.swift */,
+				33CD1F051E8B98E300C96CD2 /* SYDevice.swift */,
 				33EA55591E8B585900263D53 /* SYNetwok */,
 				33EA55471E8B56ED00263D53 /* AppDelegate.swift */,
 				33EA55491E8B56ED00263D53 /* ViewController.swift */,
@@ -254,9 +260,11 @@
 			files = (
 				33EA555B1E8B58A200263D53 /* HTTPManager.swift in Sources */,
 				33EA55631E8B590F00263D53 /* SYCacheObject.swift in Sources */,
+				33CD1F061E8B98E300C96CD2 /* SYDevice.swift in Sources */,
 				33EA554A1E8B56ED00263D53 /* ViewController.swift in Sources */,
 				33CD1F031E8B737C00C96CD2 /* DRequest.swift in Sources */,
 				33EA555F1E8B58BE00263D53 /* SYResponse.swift in Sources */,
+				33CD1F081E8B98EB00C96CD2 /* SYLocationTool.swift in Sources */,
 				33EA55481E8B56ED00263D53 /* AppDelegate.swift in Sources */,
 				33EA55611E8B590400263D53 /* SYCache.swift in Sources */,
 				33EA555D1E8B58B500263D53 /* Request.swift in Sources */,

@@ -54,18 +54,17 @@ final class HTTPManager: NSObject {
             let req: DataRequest?
             if (request.request != nil) {
                 req = Alamofire.request(request.request! as! URLRequestConvertible)
-                    .responseJSON{ (response) in
-                        // 自定义了 request 的情况
-                        print(request.decode(response))
-                }
+                    .response(completionHandler: { (response) in
+                        // 解码
+                        
+                    })
             } else {
                 req = Alamofire.request(request.url,
                                       method: method,
-                                      parameters: request.parameters,
-                                      headers: nil)
+                                      parameters: request.parameters)
                     .response(completionHandler: { (response) in
                         // 解码
-                        _ = request.decode(response)
+                        
                     })
 
             }
@@ -74,13 +73,6 @@ final class HTTPManager: NSObject {
             }
         })
     }
-}
-
-
-private extension HTTPManager {
-//    func handle(_ response: DataResponse<Any>, observer: Observable<E>) {
-//        
-//    }
 }
 
 // MARK: - 网络监听
@@ -105,4 +97,75 @@ private extension HTTPManager {
         }
         manager?.startListening()
     }
+    
+    
+    /*
+     + (NSNumber *)getDeviceNetworkType {
+     UIApplication *app = [UIApplication sharedApplication];
+     NSArray *subviews = [[[app valueForKey:@"statusBar"] valueForKey:@"foregroundView"] subviews];
+     NSNumber *dataNetworkItemView = nil;
+     
+     for (id subview in subviews) {
+     if([subview isKindOfClass:[NSClassFromString(@"UIStatusBarDataNetworkItemView") class]]) {
+     dataNetworkItemView = subview;
+     break;
+     }
+     }
+     NSNumber *netType;
+     NSNumber * num = [dataNetworkItemView valueForKey:@"dataNetworkType"];
+     if (num == nil)
+     {
+     netType = [NSNumber numberWithInt:0];
+     }
+     else
+     {
+     int n = [num intValue];
+     if (n == 0)
+     {
+     netType = [NSNumber numberWithInt:0];
+     }
+     else if (n == 1)
+     {
+     netType = [NSNumber numberWithInt:1];
+     }
+     else if (n == 2)
+     {
+     netType = [NSNumber numberWithInt:2];
+     }
+     else if (n == 3)
+     {
+     netType = [NSNumber numberWithInt:3];
+     }
+     else
+     {
+     netType = [NSNumber numberWithInt:4];
+     }
+     }
+     //0 - 无网络; 1 - 2G; 2 - 3G; 3 - 4G; 4 - WIFI
+     return netType;
+     }
+     */
+    
+//    func deviceNetworkType() -> Void {
+//        let application = UIApplication.shared
+//        let subviews = ((application.value(forKey: "statusBar") as! UIView).value(forKey: "foregroundView") as! UIView).subviews
+//        
+//        let dataNetworkItemView = subviews.filter { (subview) -> Bool in
+//            
+//        }
+//        
+//    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

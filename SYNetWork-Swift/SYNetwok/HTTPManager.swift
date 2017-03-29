@@ -15,6 +15,7 @@ import RxSwift
 
 enum ReachabilityStatus {
     case NotReachable
+    case NotKnown
     case Cellular
     case WIFI
 }
@@ -30,11 +31,8 @@ final class HTTPManager: NSObject {
         self.startMonitor()
     }
     
-    /// 监听是否联网
-    fileprivate(set) var isReachability: Bool = false
-    
     /// 监听网络连接状态
-    fileprivate(set) var connectionState: ReachabilityStatus = .NotReachable
+    fileprivate(set) var connectionState: ReachabilityStatus = .NotKnown
     
     public func start(_ request: Request!) -> Observable<Response>{
         
@@ -43,7 +41,7 @@ final class HTTPManager: NSObject {
             // 1.寻找本地缓存。
             // TO: 有缓存的情况
             // 在这里发起请求
-            if !(self?.isReachability)! {// 网络不可用
+            if self?.connectionState == .NotReachable {// 网络不可用
                 // 返回失败的 error
                 observer.onError(NSError(domain: "网络不可用", code: -1024, userInfo: nil))
             }
@@ -54,15 +52,15 @@ final class HTTPManager: NSObject {
             case .post:
                 method = .post
             }
-            
+            let req: DataRequest?
             if (request.request != nil) {
-                _ = Alamofire.request(request.request! as! URLRequestConvertible)
+                req = Alamofire.request(request.request! as! URLRequestConvertible)
                     .responseJSON{ (response) in
                         // 自定义了 request 的情况
                         print(request.decode(response))
                 }
             } else {
-                _ = Alamofire.request(request.url,
+                req = Alamofire.request(request.url,
                                       method: method,
                                       parameters: request.parameters,
                                       headers: nil)
@@ -70,7 +68,9 @@ final class HTTPManager: NSObject {
                         print(request.decode(response))
                     })
             }
-            return Disposables.create{}
+            return Disposables.create{
+                req?.cancel()
+            }
         })
     }
 }
@@ -85,25 +85,44 @@ private extension HTTPManager {
 // MARK: - 网络监听
 private extension HTTPManager {
     func startMonitor() {
-        let reachability = Reachability()!
-        reachability.whenReachable = {[weak self] reachability in
-            self?.isReachability = true
-            DispatchQueue.main.async {
-                if reachability.isReachableViaWiFi {
+        
+        let manager = NetworkReachabilityManager.init()
+        manager?.listener = { [weak self] status in
+            switch status {
+            case .unknown:
+                self?.connectionState = .NotKnown
+            case .notReachable:
+                self?.connectionState = .NotReachable
+            case .reachable(let inStatus):
+                switch inStatus {
+                case .ethernetOrWiFi:
                     self?.connectionState = .WIFI
-                } else {
+                case .wwan:
                     self?.connectionState = .Cellular
                 }
             }
         }
-        reachability.whenUnreachable = {[weak self] reachability in
-            self?.isReachability = false
-            DispatchQueue.main.async {
-                self?.connectionState = .NotReachable
-            }
-        }
-        do {
-            try reachability.startNotifier()
-        } catch {}
+        manager?.startListening()
+        
+//        let reachability = Reachability()!
+//        reachability.whenReachable = {[weak self] reachability in
+//            self?.isReachability = true
+//            DispatchQueue.main.async {
+//                if reachability.isReachableViaWiFi {
+//                    self?.connectionState = .WIFI
+//                } else {
+//                    self?.connectionState = .Cellular
+//                }
+//            }
+//        }
+//        reachability.whenUnreachable = {[weak self] reachability in
+//            self?.isReachability = false
+//            DispatchQueue.main.async {
+//                self?.connectionState = .NotReachable
+//            }
+//        }
+//        do {
+//            try reachability.startNotifier()
+//        } catch {}
     }
 }

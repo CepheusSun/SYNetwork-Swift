@@ -9,6 +9,8 @@
 import Foundation
 import ReachabilitySwift
 import Alamofire
+import RxCocoa
+import RxSwift
 // 网络状态的枚举
 
 enum ReachabilityStatus {
@@ -34,39 +36,50 @@ final class HTTPManager: NSObject {
     /// 监听网络连接状态
     fileprivate(set) var connectionState: ReachabilityStatus = .NotReachable
     
-    public func start(_ request: Request!) {
+    public func start(_ request: Request!) -> Observable<Response>{
         
-        // 1.寻找本地缓存。
-        // TO: 有缓存的情况
-        // 在这里发起请求
-        if !isReachability {// 网络不可用
-            // 返回失败的 error
-        }
-        
-        var method: HTTPMethod = .get
-        switch request.requestType {
-        case .get:
-            method = .get
-        case .post:
-            method = .post
-        }
-        
-        if (request.request != nil) {
-            _ = Alamofire.request(request.request! as! URLRequestConvertible)
-                .responseJSON{ (response) in
-                    // 自定义了 request 的情况
-                print(request.decode(response))
+        return Observable.create({ [weak self] (observer) -> Disposable in
+            
+            // 1.寻找本地缓存。
+            // TO: 有缓存的情况
+            // 在这里发起请求
+            if !(self?.isReachability)! {// 网络不可用
+                // 返回失败的 error
+                observer.onError(NSError(domain: "网络不可用", code: -1024, userInfo: nil))
             }
-        } else {
-            _ = Alamofire.request(request.url,
-                method: method,
-                parameters: request.parameters,
-                headers: nil)
-            .responseJSON(completionHandler: { (response) in
-                print(request.decode(response))
-            })
-        }
+            var method: HTTPMethod = .get
+            switch request.requestType {
+            case .get:
+                method = .get
+            case .post:
+                method = .post
+            }
+            
+            if (request.request != nil) {
+                _ = Alamofire.request(request.request! as! URLRequestConvertible)
+                    .responseJSON{ (response) in
+                        // 自定义了 request 的情况
+                        print(request.decode(response))
+                }
+            } else {
+                _ = Alamofire.request(request.url,
+                                      method: method,
+                                      parameters: request.parameters,
+                                      headers: nil)
+                    .responseJSON(completionHandler: { (response) in
+                        print(request.decode(response))
+                    })
+            }
+            return Disposables.create{}
+        })
     }
+}
+
+
+private extension HTTPManager {
+//    func handle(_ response: DataResponse<Any>, observer: Observable<E>) {
+//        
+//    }
 }
 
 // MARK: - 网络监听

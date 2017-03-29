@@ -9,6 +9,6 @@
 import Foundation
 
 
-public class Response: NSObject {
+public final class Response: NSObject {
     
 }

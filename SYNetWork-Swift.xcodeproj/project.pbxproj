@@ -12,6 +12,13 @@
 		33EA554D1E8B56ED00263D53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33EA554B1E8B56ED00263D53 /* Main.storyboard */; };
 		33EA554F1E8B56ED00263D53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33EA554E1E8B56ED00263D53 /* Assets.xcassets */; };
 		33EA55521E8B56ED00263D53 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33EA55501E8B56ED00263D53 /* LaunchScreen.storyboard */; };
+		33EA555B1E8B58A200263D53 /* SYHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EA555A1E8B58A200263D53 /* SYHTTPManager.swift */; };
+		33EA555D1E8B58B500263D53 /* SYRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EA555C1E8B58B500263D53 /* SYRequest.swift */; };
+		33EA555F1E8B58BE00263D53 /* SYResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EA555E1E8B58BE00263D53 /* SYResponse.swift */; };
+		33EA55611E8B590400263D53 /* SYCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EA55601E8B590400263D53 /* SYCache.swift */; };
+		33EA55631E8B590F00263D53 /* SYCacheObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EA55621E8B590F00263D53 /* SYCacheObject.swift */; };
+		33EA55651E8B594A00263D53 /* SYService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EA55641E8B594A00263D53 /* SYService.swift */; };
+		33EA55671E8B595500263D53 /* SYServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EA55661E8B595500263D53 /* SYServiceFactory.swift */; };
 		BC6251CF0A3602C2EE16F536 /* Pods_SYNetWork_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE66D42386D2CD18C37E570 /* Pods_SYNetWork_Swift.framework */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +30,13 @@
 		33EA554E1E8B56ED00263D53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		33EA55511E8B56ED00263D53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		33EA55531E8B56ED00263D53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		33EA555A1E8B58A200263D53 /* SYHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYHTTPManager.swift; sourceTree = "<group>"; };
+		33EA555C1E8B58B500263D53 /* SYRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYRequest.swift; sourceTree = "<group>"; };
+		33EA555E1E8B58BE00263D53 /* SYResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYResponse.swift; sourceTree = "<group>"; };
+		33EA55601E8B590400263D53 /* SYCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYCache.swift; sourceTree = "<group>"; };
+		33EA55621E8B590F00263D53 /* SYCacheObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYCacheObject.swift; sourceTree = "<group>"; };
+		33EA55641E8B594A00263D53 /* SYService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYService.swift; sourceTree = "<group>"; };
+		33EA55661E8B595500263D53 /* SYServiceFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYServiceFactory.swift; sourceTree = "<group>"; };
 		54164BE69D80AB1C43BCFC28 /* Pods-SYNetWork-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SYNetWork-Swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-SYNetWork-Swift/Pods-SYNetWork-Swift.release.xcconfig"; sourceTree = "<group>"; };
 		E4991F0165D633AB9BB2B253 /* Pods-SYNetWork-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SYNetWork-Swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SYNetWork-Swift/Pods-SYNetWork-Swift.debug.xcconfig"; sourceTree = "<group>"; };
 		EEE66D42386D2CD18C37E570 /* Pods_SYNetWork_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SYNetWork_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,6 +84,7 @@
 		33EA55461E8B56ED00263D53 /* SYNetWork-Swift */ = {
 			isa = PBXGroup;
 			children = (
+				33EA55591E8B585900263D53 /* SYNetwok */,
 				33EA55471E8B56ED00263D53 /* AppDelegate.swift */,
 				33EA55491E8B56ED00263D53 /* ViewController.swift */,
 				33EA554B1E8B56ED00263D53 /* Main.storyboard */,
@@ -78,6 +93,20 @@
 				33EA55531E8B56ED00263D53 /* Info.plist */,
 			);
 			path = "SYNetWork-Swift";
+			sourceTree = "<group>";
+		};
+		33EA55591E8B585900263D53 /* SYNetwok */ = {
+			isa = PBXGroup;
+			children = (
+				33EA555A1E8B58A200263D53 /* SYHTTPManager.swift */,
+				33EA555C1E8B58B500263D53 /* SYRequest.swift */,
+				33EA555E1E8B58BE00263D53 /* SYResponse.swift */,
+				33EA55601E8B590400263D53 /* SYCache.swift */,
+				33EA55621E8B590F00263D53 /* SYCacheObject.swift */,
+				33EA55641E8B594A00263D53 /* SYService.swift */,
+				33EA55661E8B595500263D53 /* SYServiceFactory.swift */,
+			);
+			path = SYNetwok;
 			sourceTree = "<group>";
 		};
 		6160D5997861F7A4CC6876B5 /* Frameworks */ = {
@@ -212,8 +241,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33EA555B1E8B58A200263D53 /* SYHTTPManager.swift in Sources */,
+				33EA55671E8B595500263D53 /* SYServiceFactory.swift in Sources */,
+				33EA55631E8B590F00263D53 /* SYCacheObject.swift in Sources */,
 				33EA554A1E8B56ED00263D53 /* ViewController.swift in Sources */,
+				33EA555F1E8B58BE00263D53 /* SYResponse.swift in Sources */,
 				33EA55481E8B56ED00263D53 /* AppDelegate.swift in Sources */,
+				33EA55611E8B590400263D53 /* SYCache.swift in Sources */,
+				33EA555D1E8B58B500263D53 /* SYRequest.swift in Sources */,
+				33EA55651E8B594A00263D53 /* SYService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,6 +415,7 @@
 				33EA55581E8B56ED00263D53 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

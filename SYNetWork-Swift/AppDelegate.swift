@@ -18,22 +18,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let bag = DisposeBag()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        HTTPManager.shared.start(DRequest()).asObservable()
+        HTTPManager.shared.start(DRequest())/*.asObservable()*/
             .map({ (response) -> Response in
                 response.name = "aaa"
                 return response
-            }).subscribe(
+            })
+            .throttle(5, scheduler: MainScheduler.instance)
+            .subscribe(
                 onNext: {
                     (response) in
                     print("success\(response.name ?? "no name")")
-            },onError: {
-                (error) in
-                print("error")
-            },onCompleted: {
-                print("complete")
-            },onDisposed:{
-                print("disposed")
-            }).addDisposableTo(bag)
+                },onError: {
+                    (error) in
+                    print("error")
+                },onCompleted: {
+                    print("complete")
+                },onDisposed:{
+                    print("disposed")
+                }).addDisposableTo(bag)
         return true
     }
 

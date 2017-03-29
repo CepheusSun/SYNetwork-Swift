@@ -58,6 +58,11 @@ final class HTTPManager: NSObject {
                         // 解码
                         DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: { 
                             observer.onNext(Response())
+                            observer.onNext(Response())
+                            observer.onNext(Response())
+                            observer.onNext(Response())
+                            observer.onNext(Response())
+                            observer.onNext(Response())
                             observer.onCompleted()
                         })
                         

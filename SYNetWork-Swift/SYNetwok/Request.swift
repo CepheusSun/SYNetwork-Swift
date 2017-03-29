@@ -36,13 +36,11 @@ public protocol Request {
     var parameters:[String: Any] { get }
     var request:NSMutableURLRequest? { get }
 
-    
     /// 根据返回的结构判断是否合法
     ///
     /// - Parameter response: 返回的结果
     /// - Returns: 是否合法
     func isIllegal(_ response: Response) -> Bool
-    
     
     /// 拼接参数
     ///

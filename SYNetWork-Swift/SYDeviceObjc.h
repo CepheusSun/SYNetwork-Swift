@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-// 没办法,用swift 取秒挂
+// 没办法,用 swift 秒挂
 @interface SYDeviceObjc : NSObject
 
 + (NSNumber *)getDeviceNetworkType;

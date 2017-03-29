@@ -96,6 +96,10 @@ extension SYDevice {
         return UIDevice.current.identifierForVendor?.uuidString
     }
     
+    
+    /// 获取设别 uuid 使用 UserDefaults 主要因为 uuid 每次结果不一样, KeyChain 也不会永久保存
+    ///
+    /// - Returns:
     func uuid() -> String! {
         
         if (UserDefaults.standard.object(forKey: QKUUID) != nil) {

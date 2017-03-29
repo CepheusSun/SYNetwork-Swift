@@ -11,6 +11,7 @@ import Foundation
 
 public final class Response: NSObject {
     
+    var name: String?
 //    private(set) var resonseData: Data?
 //    private(set) var isCacha: Bool
 //    private(set) var content: AnyObject?

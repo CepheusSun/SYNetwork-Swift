@@ -56,6 +56,10 @@ final class HTTPManager: NSObject {
                 req = Alamofire.request(request.request! as! URLRequestConvertible)
                     .response(completionHandler: { (response) in
                         // 解码
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: { 
+                            observer.onNext(Response())
+                            observer.onCompleted()
+                        })
                         
                     })
             } else {
@@ -64,7 +68,10 @@ final class HTTPManager: NSObject {
                                       parameters: request.parameters)
                     .response(completionHandler: { (response) in
                         // 解码
-                        
+                        DispatchQueue.main.async {
+                            observer.onNext(Response())
+                            observer.onCompleted()
+                        }
                     })
 
             }
@@ -78,7 +85,6 @@ final class HTTPManager: NSObject {
 // MARK: - 网络监听
 private extension HTTPManager {
     func startMonitor() {
-        
         let manager = NetworkReachabilityManager.init()
         manager?.listener = { [weak self] status in
             switch status {

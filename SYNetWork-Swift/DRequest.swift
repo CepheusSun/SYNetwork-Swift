@@ -25,48 +25,12 @@ class DRequest: Request {
     func remake(_ params: [String : Any]!) -> [String : Any]! {
         
         var res = params
-//        
-//        return @{@"user_client_height"  :[NSNumber numberWithInt:kScreenH] ,
-//            @"user_client_width"   : [NSNumber numberWithInt:kScreenW],
-//            @"user_client_memory"  :[NSNumber numberWithLongLong:[NSProcessInfo processInfo].physicalMemory],
-//            @"user_network"        :[QKService getDeviceNetworkType],
-//            @"network"             :[QKService getDeviceNetworkType],
-//            @"user_os"             :[[UIDevice currentDevice] systemName],
-//            @"user_os_version"     :[[UIDevice currentDevice] systemVersion],
-//            @"user_model"          :[NSObject objDeviceType],
-//            @"user_client_operator":nettype,
-//            @"user_channel"        :([[[NSBundle mainBundle] bundleIdentifier] isEqualToString:@"com.zhqk.tvbee"] ? @"company": @"AppStore"),
-//            @"channel"             :([[[NSBundle mainBundle] bundleIdentifier] isEqualToString:@"com.zhqk.tvbee"] ? @"company": @"AppStore"),
-//            @"version"             :[[UIDevice currentDevice] systemVersion],
-//            @"device_id"           :[self UUID],
-//            @"platform"            :@"1",
-//            @"package"             :[[NSBundle mainBundle] bundleIdentifier]
-//        }.mutableCopy;
-//        
-//        return @{@"user_client_height"  :[NSNumber numberWithInt:kScreenH] ,
-//            @"user_client_width"   : [NSNumber numberWithInt:kScreenW],
-//            @"user_client_memory"  :[NSNumber numberWithLongLong:[NSProcessInfo processInfo].physicalMemory],
-//            @"user_network"        :[QKService getDeviceNetworkType],
-//            @"network"             :[QKService getDeviceNetworkType],
-//            @"user_os"             :[[UIDevice currentDevice] systemName],
-//            @"user_os_version"     :[[UIDevice currentDevice] systemVersion],
-//            @"user_model"          :[NSObject objDeviceType],
-//            @"user_client_operator":nettype,
-//            @"user_channel"        :([[[NSBundle mainBundle] bundleIdentifier] isEqualToString:@"com.zhqk.tvbee"] ? @"company": @"AppStore"),
-//            @"channel"             :([[[NSBundle mainBundle] bundleIdentifier] isEqualToString:@"com.zhqk.tvbee"] ? @"company": @"AppStore"),
-//            @"version"             :[[UIDevice currentDevice] systemVersion],
-//            @"device_id"           :[self UUID],
-//            @"platform"            :@"1",
-//            @"package"             :[[NSBundle mainBundle] bundleIdentifier]
-//        }.mutableCopy;
-//        
-        
         let networkInfo = CTTelephonyNetworkInfo()
         let carrier = networkInfo.subscriberCellularProvider
         let nettype = carrier?.carrierName ?? "无运营商"
         
-        res?["user_client_height"] = ""
-        res?["user_client_width"] = ""
+        res?["user_client_height"] = ScreenHeight()
+        res?["user_client_width"] = ScreenWidth()
         res?["user_client_memory"] = SYDevice.device.device_memory()
         res?["user_network"] = SYDeviceObjc.getDeviceNetworkType()
         res?["network"] = SYDeviceObjc.getDeviceNetworkType()
@@ -86,11 +50,12 @@ class DRequest: Request {
         res?["platform"] = "1"
         res?["package"] = SYDevice.device.app_bundleId()
         
-        
         return res
     }
 
-    var url: String!
+    var url: String! {
+        return ""
+    }
 
 
     /// 根据返回的结构判断是否合法

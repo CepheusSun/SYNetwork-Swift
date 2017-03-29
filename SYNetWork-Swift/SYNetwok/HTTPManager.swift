@@ -63,9 +63,11 @@ final class HTTPManager: NSObject {
                                       method: method,
                                       parameters: request.parameters,
                                       headers: nil)
-                    .responseJSON(completionHandler: { (response) in
-                        print(request.decode(response))
+                    .response(completionHandler: { (response) in
+                        // 解码
+                        _ = request.decode(response)
                     })
+
             }
             return Disposables.create{
                 req?.cancel()
@@ -102,27 +104,5 @@ private extension HTTPManager {
             }
         }
         manager?.startListening()
-        
-        /** ReachabilitySwift 的监听代码 */
-//        let reachability = Reachability()!
-//        reachability.whenReachable = {[weak self] reachability in
-//            self?.isReachability = true
-//            DispatchQueue.main.async {
-//                if reachability.isReachableViaWiFi {
-//                    self?.connectionState = .WIFI
-//                } else {
-//                    self?.connectionState = .Cellular
-//                }
-//            }
-//        }
-//        reachability.whenUnreachable = {[weak self] reachability in
-//            self?.isReachability = false
-//            DispatchQueue.main.async {
-//                self?.connectionState = .NotReachable
-//            }
-//        }
-//        do {
-//            try reachability.startNotifier()
-//        } catch {}
     }
 }

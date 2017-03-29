@@ -130,6 +130,7 @@
 				33EA55421E8B56ED00263D53 /* Resources */,
 				AEB3DA8A5A6E2347157F6782 /* [CP] Embed Pods Frameworks */,
 				5EB338C76485DB7838175889 /* [CP] Copy Pods Resources */,
+				33CD1F041E8B7FC400C96CD2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -189,6 +190,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		33CD1F041E8B7FC400C96CD2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"TO:|FIX:\"\necho \"searching ${SRCROOT} for ${TAGS}\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
+		};
 		5EB338C76485DB7838175889 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -375,6 +389,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 552B69TXM9;
 				INFOPLIST_FILE = "SYNetWork-Swift/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "app.SYNetWork-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -389,6 +404,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 552B69TXM9;
 				INFOPLIST_FILE = "SYNetWork-Swift/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "app.SYNetWork-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -8,8 +8,9 @@
 
 import Foundation
 import ReachabilitySwift
-
+import Alamofire
 // 网络状态的枚举
+
 enum ReachabilityStatus {
     case NotReachable
     case Cellular
@@ -27,7 +28,6 @@ final class HTTPManager: NSObject {
         self.startMonitor()
     }
     
-    
     /// 监听是否联网
     fileprivate(set) var isReachability: Bool = false
     
@@ -37,15 +37,36 @@ final class HTTPManager: NSObject {
     public func start(_ request: Request!) {
         
         // 1.寻找本地缓存。
-        // DO: 有缓存的情况
+        // TO: 有缓存的情况
         // 在这里发起请求
-        if (request.request != nil) {
-            
+        if !isReachability {// 网络不可用
+            // 返回失败的 error
         }
         
+        var method: HTTPMethod = .get
+        switch request.requestType {
+        case .get:
+            method = .get
+        case .post:
+            method = .post
+        }
         
+        if (request.request != nil) {
+            _ = Alamofire.request(request.request! as! URLRequestConvertible)
+                .responseJSON{ (response) in
+                    // 自定义了 request 的情况
+                print(request.decode(response))
+            }
+        } else {
+            _ = Alamofire.request(request.url,
+                method: method,
+                parameters: request.parameters,
+                headers: nil)
+            .responseJSON(completionHandler: { (response) in
+                print(request.decode(response))
+            })
+        }
     }
-    
 }
 
 // MARK: - 网络监听

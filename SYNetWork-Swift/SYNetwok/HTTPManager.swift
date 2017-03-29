@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import ReachabilitySwift
 import Alamofire
 import RxCocoa
 import RxSwift
@@ -104,6 +103,7 @@ private extension HTTPManager {
         }
         manager?.startListening()
         
+        /** ReachabilitySwift 的监听代码 */
 //        let reachability = Reachability()!
 //        reachability.whenReachable = {[weak self] reachability in
 //            self?.isReachability = true

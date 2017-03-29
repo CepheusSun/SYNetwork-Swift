@@ -111,3 +111,32 @@ extension SYDevice {
     }
 }
 
+// MARK: - Layout
+extension SYDevice {
+    
+    /// 是否横屏
+    ///
+    /// - Returns: 横屏返回 true
+    func isHorizontal() -> Bool {
+        return UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight
+    }
+}
+
+
+/// 根据横屏状态获取屏幕高度
+///
+/// - Returns: 始终返回屏幕的高
+func ScreenHeight() -> CGFloat {
+    if SYDevice.device.isHorizontal() {
+        return UIScreen.main.bounds.width
+    }
+    return UIScreen.main.bounds.height
+}
+
+func ScreenWidth() -> CGFloat {
+    if SYDevice.device.isHorizontal() {
+        return UIScreen.main.bounds.height
+    }
+    return UIScreen.main.bounds.width
+}
+

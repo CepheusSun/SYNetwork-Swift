@@ -10,6 +10,8 @@
 		33CD1F031E8B737C00C96CD2 /* DRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CD1F021E8B737C00C96CD2 /* DRequest.swift */; };
 		33CD1F061E8B98E300C96CD2 /* SYDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CD1F051E8B98E300C96CD2 /* SYDevice.swift */; };
 		33CD1F081E8B98EB00C96CD2 /* SYLocationTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CD1F071E8B98EB00C96CD2 /* SYLocationTool.swift */; };
+		33CD1F0C1E8BB16700C96CD2 /* SYDeviceObjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CD1F0B1E8BB16700C96CD2 /* SYDeviceObjc.m */; };
+		33CD1F0E1E8BE5D300C96CD2 /* SYLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CD1F0D1E8BE5D300C96CD2 /* SYLayout.swift */; };
 		33EA55481E8B56ED00263D53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EA55471E8B56ED00263D53 /* AppDelegate.swift */; };
 		33EA554A1E8B56ED00263D53 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EA55491E8B56ED00263D53 /* ViewController.swift */; };
 		33EA554D1E8B56ED00263D53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33EA554B1E8B56ED00263D53 /* Main.storyboard */; };
@@ -27,6 +29,10 @@
 		33CD1F021E8B737C00C96CD2 /* DRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DRequest.swift; sourceTree = "<group>"; };
 		33CD1F051E8B98E300C96CD2 /* SYDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYDevice.swift; sourceTree = "<group>"; };
 		33CD1F071E8B98EB00C96CD2 /* SYLocationTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYLocationTool.swift; sourceTree = "<group>"; };
+		33CD1F091E8BB16600C96CD2 /* SYNetWork-Swift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SYNetWork-Swift-Bridging-Header.h"; sourceTree = "<group>"; };
+		33CD1F0A1E8BB16700C96CD2 /* SYDeviceObjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYDeviceObjc.h; sourceTree = "<group>"; };
+		33CD1F0B1E8BB16700C96CD2 /* SYDeviceObjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYDeviceObjc.m; sourceTree = "<group>"; };
+		33CD1F0D1E8BE5D300C96CD2 /* SYLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYLayout.swift; sourceTree = "<group>"; };
 		33EA55441E8B56ED00263D53 /* SYNetWork-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SYNetWork-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		33EA55471E8B56ED00263D53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33EA55491E8B56ED00263D53 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +94,9 @@
 			children = (
 				33CD1F071E8B98EB00C96CD2 /* SYLocationTool.swift */,
 				33CD1F051E8B98E300C96CD2 /* SYDevice.swift */,
+				33CD1F0D1E8BE5D300C96CD2 /* SYLayout.swift */,
+				33CD1F0A1E8BB16700C96CD2 /* SYDeviceObjc.h */,
+				33CD1F0B1E8BB16700C96CD2 /* SYDeviceObjc.m */,
 				33EA55591E8B585900263D53 /* SYNetwok */,
 				33EA55471E8B56ED00263D53 /* AppDelegate.swift */,
 				33EA55491E8B56ED00263D53 /* ViewController.swift */,
@@ -96,6 +105,7 @@
 				33EA55501E8B56ED00263D53 /* LaunchScreen.storyboard */,
 				33EA55531E8B56ED00263D53 /* Info.plist */,
 				33CD1F021E8B737C00C96CD2 /* DRequest.swift */,
+				33CD1F091E8BB16600C96CD2 /* SYNetWork-Swift-Bridging-Header.h */,
 			);
 			path = "SYNetWork-Swift";
 			sourceTree = "<group>";
@@ -157,6 +167,7 @@
 					33EA55431E8B56ED00263D53 = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = 552B69TXM9;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -261,6 +272,8 @@
 				33EA555B1E8B58A200263D53 /* HTTPManager.swift in Sources */,
 				33EA55631E8B590F00263D53 /* SYCacheObject.swift in Sources */,
 				33CD1F061E8B98E300C96CD2 /* SYDevice.swift in Sources */,
+				33CD1F0E1E8BE5D300C96CD2 /* SYLayout.swift in Sources */,
+				33CD1F0C1E8BB16700C96CD2 /* SYDeviceObjc.m in Sources */,
 				33EA554A1E8B56ED00263D53 /* ViewController.swift in Sources */,
 				33CD1F031E8B737C00C96CD2 /* DRequest.swift in Sources */,
 				33EA555F1E8B58BE00263D53 /* SYResponse.swift in Sources */,
@@ -391,12 +404,15 @@
 			baseConfigurationReference = E4991F0165D633AB9BB2B253 /* Pods-SYNetWork-Swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 552B69TXM9;
 				INFOPLIST_FILE = "SYNetWork-Swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "app.SYNetWork-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SYNetWork-Swift/SYNetWork-Swift-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -406,12 +422,14 @@
 			baseConfigurationReference = 54164BE69D80AB1C43BCFC28 /* Pods-SYNetWork-Swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 552B69TXM9;
 				INFOPLIST_FILE = "SYNetWork-Swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "app.SYNetWork-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SYNetWork-Swift/SYNetWork-Swift-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

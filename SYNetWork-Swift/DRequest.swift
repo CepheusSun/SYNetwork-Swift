@@ -68,8 +68,8 @@ class DRequest: Request {
         res?["user_client_height"] = ""
         res?["user_client_width"] = ""
         res?["user_client_memory"] = SYDevice.device.device_memory()
-        res?["user_network"] = ""
-        res?["network"] = ""
+        res?["user_network"] = SYDeviceObjc.getDeviceNetworkType()
+        res?["network"] = SYDeviceObjc.getDeviceNetworkType()
         res?["user_os"] = SYDevice.device.sys_name()
         res?["user_os_version"] = SYDevice.device.os_version()
         res?["user_model"] = SYDevice.device.device_name()

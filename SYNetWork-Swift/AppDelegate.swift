@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let bag = DisposeBag()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        HTTPManager.shared.start(DRequest())/*.asObservable()*/
+        HTTPManager.shared.start(DRequest()).asObservable()
             .map({ (response) -> Response in
                 response.name = "aaa"
                 return response
@@ -35,7 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     print("complete")
                 },onDisposed:{
                     print("disposed")
-                }).addDisposableTo(bag)
+                }).disposed(by: bag)
+        
         return true
     }
 

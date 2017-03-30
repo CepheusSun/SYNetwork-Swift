@@ -16,25 +16,18 @@ public class Response: NSObject {
     /// 原始数据
     var data: Data?
     var isCache: Bool?
-    
     /// 解析后的数据
-    var content: [String: Any]?
-    
-    convenience init(_ responseData: Data?, error: Error?){
+    var content: Any?
+    var error: Error?
+    convenience init(_ responseData: Data?, fromcache: Bool){
         self.init()
         self.data = responseData
-        self.isCache = false
-        
-        if (responseData != nil) {
-            self.content = try? JSONSerialization.jsonObject(with: (responseData)!, options: .allowFragments) as! [String: Any]
+        self.isCache = fromcache
+        self.content = try? JSONSerialization.jsonObject(with: (responseData)!, options: .allowFragments)
+        if self.content == nil {
+            // 数据解析失败
+            let err = NSError(domain: "the data is not in the correct format", code: -1001, userInfo: nil)
+            self.error = err
         }
-        
-    }
-    
-    convenience init(_ responseData: Data) {
-        self.init()
-        self.data = responseData
-        self.isCache = true
-        self.content = try? JSONSerialization.jsonObject(with: (responseData), options: .allowFragments) as! [String: Any]
     }
 }

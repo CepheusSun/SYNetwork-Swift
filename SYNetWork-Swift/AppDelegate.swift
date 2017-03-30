@@ -20,16 +20,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         HTTPManager.shared.start(YRequest()).asObservable()
             .map({ (response) -> Response in
+                // 在这儿做模型转换
                 return response
             })
             .throttle(5, scheduler: MainScheduler.instance)
             .subscribe(
                 onNext: {
                     (response) in
-                    print("success")
+                    print("success\(response.content!)")
                 },onError: {
                     (error) in
-                    print("error")
+                    print("error\(error.localizedDescription)")
                 },onCompleted: {
                     print("complete")
                 },onDisposed:{

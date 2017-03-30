@@ -68,16 +68,20 @@ final class HTTPManager: NSObject {
                         
                     })
             } else {
-                req = Alamofire.request("\(request.url!)\(request.path!)",
+                req = Alamofire.request("\(request.url!)\(request.path!))",
                                       method: method,
                                       parameters: request.parameters)
                     .response(completionHandler: { (response) in
-                        // 解码
                         if response.error != nil {
                             observer.onError(response.error!)
+                            observer.onCompleted()
+                        }
+                        let resp = Response(response.data!, fromcache: false)
+                        if (resp.error != nil) {
+                            observer.onError(resp.error!)
                         } else {
                             DispatchQueue.main.async {
-                                observer.onNext(Response(response.data!))
+                                observer.onNext(resp)
                                 observer.onCompleted()
                             }
                         }

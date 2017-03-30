@@ -21,9 +21,6 @@ public class Cache {
     static let shared = Cache()
     private init() {}
     
-    // 不需要暴露给外界
-    fileprivate static let disk = DiskCache(type: .network)
-    
     // MARK - 增删改查
     public func save(_ data: Data!, for request: Request) {
         self.save(data, for: self.key(for: request))
@@ -39,12 +36,19 @@ public class Cache {
     
     public func clean() {
         manager.removeAllObjects()
-        Cache.disk.clean()
+        DiskCache.shared.clean()
     }
     
     
     private func fetch(for key: String!) -> Data? {
         let data = self.manager.object(forKey: key as AnyObject) as! CacheObject
+        if data.isEmpty() {
+            DiskCache.shared.fetch(for: key, objectGetHandler: { (obj) in
+                if (obj?.isEmpty())! || (obj?.isOutDated())! {
+                    // TO: 删除某条数据
+                }
+            })
+        }
         if data.isEmpty() || data.isOutDated() {
             self.delete(for: key)
             return nil
@@ -66,6 +70,7 @@ public class Cache {
     /// - Parameter key: key 值
     private func delete(for key: String!) {
         self.manager.removeObject(forKey: key as AnyObject)
+        DiskCache.shared.clean()
     }
     
     /// 生成存取缓存的key
@@ -120,28 +125,32 @@ fileprivate class DiskCache {
     }
     
     
-    func store(_ data: Data!, for key: String) {
+    func store(_ resp: CacheObject!, for key: String) {
+        let data = NSMutableData()
+        let keyArchiver = NSKeyedArchiver.init(forWritingWith: data)
+        keyArchiver.encode(resp, forKey: key)
+        keyArchiver.finishEncoding()
         do {
-            try (data as NSData).write(toFile: key , options: .atomicWrite)
+            try data.write(toFile: key , options: .atomicWrite)
         } catch let err {
             print("SYNetwork,write to disk error: \(err.localizedDescription)")
         }
     }
     
-    func fetch(for key: String) -> Data? {
+    func fetch(for key: String, objectGetHandler:((_ obj:CacheObject?) -> ())?) {
         let path = diskCachePath?.appending(key)
-        var data: Data = Data()
-        var flag: Bool = false
         switch storeType {
         case .network:
             DispatchQueue.global().async {
                 if self.fileManager.fileExists(atPath: path!) {
-                    data = self.fileManager.contents(atPath: path!)!
-                    flag = true
+                    let data: Data = self.fileManager.contents(atPath: path!)!
+                    let unArchiver = NSKeyedUnarchiver(forReadingWith: data)
+                    let obj = unArchiver.decodeObject(forKey: key)
+                    objectGetHandler?(obj as? CacheObject)
                 }
+                objectGetHandler?(nil)
             }
         }
-        return flag ? data : nil
     }
     
     func clean() {
@@ -151,7 +160,7 @@ fileprivate class DiskCache {
 }
 
 /// 缓存的对象
-private class CacheObject {
+private class CacheObject: NSCoding {
     
     fileprivate(set) var content: Data? {
         didSet {
@@ -161,7 +170,7 @@ private class CacheObject {
     fileprivate(set) var lastUpdatetime: Date!
     
     convenience init(data: Data) {
-        self.init()
+        self.init(data: data)
         content = data
     }
     
@@ -177,6 +186,17 @@ private class CacheObject {
         let timeInterval: TimeInterval = Date().timeIntervalSince(lastUpdatetime)
         
         return timeInterval > 300
+    }
+    
+    // MARK - 序列化
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.content, forKey:"content")
+        aCoder.encode(self.lastUpdatetime, forKey: "lastUpdatetime")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.content = aDecoder.decodeObject(forKey: "content") as? Data
+        self.lastUpdatetime = aDecoder.decodeObject(forKey: "lastUpdatetime") as? Date
     }
     
 }

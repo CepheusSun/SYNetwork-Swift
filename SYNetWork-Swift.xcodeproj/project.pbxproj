@@ -21,8 +21,7 @@
 		33EA555B1E8B58A200263D53 /* HTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EA555A1E8B58A200263D53 /* HTTPManager.swift */; };
 		33EA555D1E8B58B500263D53 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EA555C1E8B58B500263D53 /* Request.swift */; };
 		33EA555F1E8B58BE00263D53 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EA555E1E8B58BE00263D53 /* Response.swift */; };
-		33EA55611E8B590400263D53 /* SYCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EA55601E8B590400263D53 /* SYCache.swift */; };
-		33EA55631E8B590F00263D53 /* SYCacheObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EA55621E8B590F00263D53 /* SYCacheObject.swift */; };
+		33EA55611E8B590400263D53 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EA55601E8B590400263D53 /* Cache.swift */; };
 		BC6251CF0A3602C2EE16F536 /* Pods_SYNetWork_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE66D42386D2CD18C37E570 /* Pods_SYNetWork_Swift.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,8 +44,7 @@
 		33EA555A1E8B58A200263D53 /* HTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPManager.swift; sourceTree = "<group>"; };
 		33EA555C1E8B58B500263D53 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		33EA555E1E8B58BE00263D53 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
-		33EA55601E8B590400263D53 /* SYCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYCache.swift; sourceTree = "<group>"; };
-		33EA55621E8B590F00263D53 /* SYCacheObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SYCacheObject.swift; sourceTree = "<group>"; };
+		33EA55601E8B590400263D53 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		54164BE69D80AB1C43BCFC28 /* Pods-SYNetWork-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SYNetWork-Swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-SYNetWork-Swift/Pods-SYNetWork-Swift.release.xcconfig"; sourceTree = "<group>"; };
 		E4991F0165D633AB9BB2B253 /* Pods-SYNetWork-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SYNetWork-Swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SYNetWork-Swift/Pods-SYNetWork-Swift.debug.xcconfig"; sourceTree = "<group>"; };
 		EEE66D42386D2CD18C37E570 /* Pods_SYNetWork_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SYNetWork_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,8 +117,7 @@
 				33EA555A1E8B58A200263D53 /* HTTPManager.swift */,
 				33EA555C1E8B58B500263D53 /* Request.swift */,
 				33EA555E1E8B58BE00263D53 /* Response.swift */,
-				33EA55601E8B590400263D53 /* SYCache.swift */,
-				33EA55621E8B590F00263D53 /* SYCacheObject.swift */,
+				33EA55601E8B590400263D53 /* Cache.swift */,
 			);
 			path = SYNetwok;
 			sourceTree = "<group>";
@@ -273,7 +270,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				33EA555B1E8B58A200263D53 /* HTTPManager.swift in Sources */,
-				33EA55631E8B590F00263D53 /* SYCacheObject.swift in Sources */,
 				33CD1F061E8B98E300C96CD2 /* SYDevice.swift in Sources */,
 				33CD1F0E1E8BE5D300C96CD2 /* SYLayout.swift in Sources */,
 				33CD1F0C1E8BB16700C96CD2 /* SYDeviceObjc.m in Sources */,
@@ -283,7 +279,7 @@
 				33ADA0B51E8C9C5500B24F3B /* YRequest.swift in Sources */,
 				33CD1F081E8B98EB00C96CD2 /* SYLocationTool.swift in Sources */,
 				33EA55481E8B56ED00263D53 /* AppDelegate.swift in Sources */,
-				33EA55611E8B590400263D53 /* SYCache.swift in Sources */,
+				33EA55611E8B590400263D53 /* Cache.swift in Sources */,
 				33EA555D1E8B58B500263D53 /* Request.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

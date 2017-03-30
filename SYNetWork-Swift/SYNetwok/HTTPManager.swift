@@ -8,7 +8,6 @@
 
 import Foundation
 import Alamofire
-import RxCocoa
 import RxSwift
 // 网络状态的枚举
 

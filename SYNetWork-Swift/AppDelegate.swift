@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             .subscribe(
                 onNext: {
                     (response) in
-                    print("success\(response.name ?? "no name")")
+                    print("success")
                 },onError: {
                     (error) in
                     print("error")

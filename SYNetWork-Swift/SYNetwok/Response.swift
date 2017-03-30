@@ -11,7 +11,7 @@ import Foundation
 
 public class Response: NSObject {
     
-    var name: String?
+//    var name: String?
     
     /// 原始数据
     var data: Data?

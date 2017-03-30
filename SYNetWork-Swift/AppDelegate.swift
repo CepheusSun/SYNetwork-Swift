@@ -18,9 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let bag = DisposeBag()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        HTTPManager.shared.start(DRequest()).asObservable()
+        HTTPManager.shared.start(YRequest()).asObservable()
             .map({ (response) -> Response in
-                response.name = "aaa"
                 return response
             })
             .throttle(5, scheduler: MainScheduler.instance)

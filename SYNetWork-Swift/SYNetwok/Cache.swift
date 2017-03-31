@@ -64,6 +64,7 @@ public class Cache {
         }
         cache!.update(data: data)
         self.manager.setObject(cache!, forKey: key as AnyObject)
+        DiskCache.shared.store(cache, for: key)
     }
     
     /// 按照 key 值删除缓存
@@ -96,11 +97,11 @@ public class Cache {
 fileprivate class DiskCache {
     
     enum CacheFor: String {
-        case network = "SYNetwork_Swift"
+        case network = "SYNetwork_Swift/"
     }
     
     private let defaultCacheName = "SY_default"
-    private let cachePrex = "com.sy.network.cache."
+    private let cachePrex = "/com.sy.network.cache."
     private let ioQueueName = "com.sy.network.cache.ioQueue."
     
     private var fileManager = FileManager.default
@@ -129,24 +130,25 @@ fileprivate class DiskCache {
     func store(_ resp: CacheObject!, for key: String) {
         let data = NSMutableData()
         let keyArchiver = NSKeyedArchiver.init(forWritingWith: data)
-        keyArchiver.encode(resp, forKey: key)
+        keyArchiver.encode(resp, forKey: key.encrypt())
         keyArchiver.finishEncoding()
+        let path = diskCachePath?.appending(key.encrypt())
         do {
-            try data.write(toFile: key , options: .atomicWrite)
+            try data.write(toFile: path! , options: .atomicWrite)
         } catch let err {
             print("SYNetwork,write to disk error: \(err.localizedDescription)")
         }
     }
     
     func fetch(for key: String, objectGetHandler:@escaping ((_ obj:CacheObject?) -> ())) {
-        let path = diskCachePath?.appending(key)
+        let path = diskCachePath?.appending(key.encrypt())
         switch storeType {
         case .network:
             DispatchQueue.global().async {
                 if self.fileManager.fileExists(atPath: path!) {
                     let data: Data = self.fileManager.contents(atPath: path!)!
                     let unArchiver = NSKeyedUnarchiver(forReadingWith: data)
-                    let obj = unArchiver.decodeObject(forKey: key)
+                    let obj = unArchiver.decodeObject(forKey: key.encrypt())
                     objectGetHandler(obj as? CacheObject)
                 }
                 objectGetHandler(nil)
@@ -158,10 +160,21 @@ fileprivate class DiskCache {
         let directory = cachePrex + storeType.rawValue
         try? fileManager.removeItem(atPath: directory)
     }
+    
+    
+}
+
+fileprivate extension String {
+    
+    
+    func encrypt() -> String! {
+        
+        return self.replacingOccurrences(of: "/", with: "_")
+    }
 }
 
 /// 缓存的对象
-private class CacheObject: NSCoding {
+private class CacheObject: NSObject ,NSCoding {// 必须继承 NSObject 不然序列化 crash
     
     fileprivate(set) var content: Data? {
         didSet {
@@ -171,6 +184,7 @@ private class CacheObject: NSCoding {
     fileprivate(set) var lastUpdatetime: Date!
     
     init(data: Data) {
+        super.init()
         content = data
     }
     

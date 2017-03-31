@@ -44,7 +44,7 @@ public class Cache {
         if data == nil {
             let obj = DiskCache.shared.fetch(for: key)
             if (obj == nil || (obj?.isEmpty())!) || (obj?.isOutDated())! {
-                // TO: 删除某条数据
+                DiskCache.shared.delete(key)
             }
             data = obj
         }
@@ -104,7 +104,7 @@ fileprivate class DiskCache {
     
     private var fileManager = FileManager.default
     private let ioQueue: DispatchQueue?
-    var diskCachePath: String?
+    var diskCachePath: String
     private var storeType: CacheFor
     
     // 暂时这样, 虽然这样处理不对
@@ -119,7 +119,7 @@ fileprivate class DiskCache {
         
         ioQueue?.sync {
             do {
-                try fileManager.createDirectory(atPath: self.diskCachePath!, withIntermediateDirectories: true, attributes: nil)
+                try fileManager.createDirectory(atPath: self.diskCachePath, withIntermediateDirectories: true, attributes: nil)
             } catch _ {}
         }
     }
@@ -130,20 +130,20 @@ fileprivate class DiskCache {
         let keyArchiver = NSKeyedArchiver.init(forWritingWith: data)
         keyArchiver.encode(resp, forKey: key.encrypt())
         keyArchiver.finishEncoding()
-        let path = diskCachePath?.appending(key.encrypt())
+        let path = diskCachePath.appending(key.encrypt())
         do {
-            try data.write(toFile: path! , options: .atomicWrite)
+            try data.write(toFile: path , options: .atomicWrite)
         } catch let err {
             print("SYNetwork,write to disk error: \(err.localizedDescription)")
         }
     }
     
     func fetch(for key: String) -> CacheObject? {
-        let path = diskCachePath?.appending(key.encrypt())
+        let path = diskCachePath.appending(key.encrypt())
         switch storeType {
         case .network:
-            if self.fileManager.fileExists(atPath: path!) {
-                let data: Data = self.fileManager.contents(atPath: path!)!
+            if self.fileManager.fileExists(atPath: path) {
+                let data: Data = self.fileManager.contents(atPath: path)!
                 let unArchiver = NSKeyedUnarchiver(forReadingWith: data)
                 let obj = unArchiver.decodeObject(forKey: key.encrypt())
                 return obj as? CacheObject
@@ -153,29 +153,26 @@ fileprivate class DiskCache {
         }
     }
     
-//    func fetch(for key: String, objectGetHandler:@escaping ((_ obj:CacheObject?) -> ())) {
-//        let path = diskCachePath?.appending(key.encrypt())
-//        switch storeType {
-//        case .network:
-//            DispatchQueue.global().async {
-//                if self.fileManager.fileExists(atPath: path!) {
-//                    let data: Data = self.fileManager.contents(atPath: path!)!
-//                    let unArchiver = NSKeyedUnarchiver(forReadingWith: data)
-//                    let obj = unArchiver.decodeObject(forKey: key.encrypt())
-//                    objectGetHandler(obj as? CacheObject)
-//                } else {
-//                    objectGetHandler(nil)
-//                }
-//          }
-//        }
-//    }
-    
-    func clean() {
-        let directory = cachePrex + storeType.rawValue
-        try? fileManager.removeItem(atPath: directory)
+    func delete(_ key: String) {
+        let directory = diskCachePath
+        do {
+            try fileManager.removeItem(atPath: directory + key)
+        } catch _ {
+            print("error")
+        }
     }
     
-    
+    func clean() {
+        let directory = diskCachePath
+        // 删除文件夹
+        try? fileManager.removeItem(atPath: directory)
+        // 重新创建一个新的文件夹
+        ioQueue?.sync {
+            do {
+                try fileManager.createDirectory(atPath: self.diskCachePath, withIntermediateDirectories: true, attributes: nil)
+            } catch _ {}
+        }
+    }
 }
 
 fileprivate extension String {

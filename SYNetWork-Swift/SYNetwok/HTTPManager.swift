@@ -107,6 +107,12 @@ final class HTTPManager: NSObject {
     }
 }
 
+extension HTTPManager {
+    public class func cleanAllCache() {
+        Cache.shared.clean()
+    }
+}
+
 // MARK: - 网络监听
 private extension HTTPManager {
     func startMonitor() {

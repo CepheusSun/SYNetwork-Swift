@@ -15,6 +15,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        cleanBUtton .addTarget(self, action: #selector(clean), for: .touchUpInside)
+    }
+    
+    func clean() {
+        HTTPManager.cleanAllCache()
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,6 +29,8 @@ class ViewController: UIViewController {
 
     let bag = DisposeBag()
 
+    @IBOutlet weak var cleanBUtton: UIButton!
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         HTTPManager.shared.start(YRequest()).asObservable()
             .map({ (response) -> Response in

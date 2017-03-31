@@ -7,36 +7,16 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    let bag = DisposeBag()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        HTTPManager.shared.start(YRequest()).asObservable()
-            .map({ (response) -> Response in
-                // 在这儿做模型转换
-                return response
-            })
-            .throttle(5, scheduler: MainScheduler.instance)
-            .subscribe(
-                onNext: {
-                    (response) in
-                    print("success\(response.content!)")
-                },onError: {
-                    (error) in
-                    print("error\(error.localizedDescription)")
-                },onCompleted: {
-                    print("complete")
-                },onDisposed:{
-                    print("disposed")
-                }).disposed(by: bag)
-        
+
         return true
     }
 

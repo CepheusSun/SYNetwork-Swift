@@ -150,8 +150,9 @@ fileprivate class DiskCache {
                     let unArchiver = NSKeyedUnarchiver(forReadingWith: data)
                     let obj = unArchiver.decodeObject(forKey: key.encrypt())
                     objectGetHandler(obj as? CacheObject)
+                } else {
+                    objectGetHandler(nil)
                 }
-                objectGetHandler(nil)
             }
         }
     }

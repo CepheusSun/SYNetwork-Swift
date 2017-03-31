@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class ViewController: UIViewController {
 
@@ -20,6 +22,29 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    let bag = DisposeBag()
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        HTTPManager.shared.start(YRequest()).asObservable()
+            .map({ (response) -> Response in
+                // 在这儿做模型转换
+                return response
+            })
+            .throttle(5, scheduler: MainScheduler.instance)
+            .subscribe(
+                onNext: {
+                    (response) in
+                    print("success\(response.content!)")
+            },onError: {
+                (error) in
+                print("error\(error.localizedDescription)")
+            },onCompleted: {
+                print("complete")
+            },onDisposed:{
+                print("disposed")
+            }).disposed(by: bag)
+        
+    }
 
 }
 

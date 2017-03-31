@@ -42,6 +42,8 @@ final class HTTPManager: NSObject {
                 if data != nil {
                     observer.onNext(Response(data, fromcache: true))
                     observer.onCompleted()
+                    // 获取到缓存， 取消请求
+                    return Disposables.create{}
                 }
             }
             // 在这里发起请求

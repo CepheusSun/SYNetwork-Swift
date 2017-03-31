@@ -7,6 +7,5 @@ target 'SYNetWork-Swift' do
 
 pod 'RxSwift'
 pod 'Alamofire'
-pod 'RxCocoa'
 
 end

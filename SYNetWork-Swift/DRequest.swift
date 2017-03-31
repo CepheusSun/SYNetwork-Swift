@@ -10,6 +10,7 @@ import Foundation
 import CoreTelephony
 
 class DRequest: Request {
+
     /// 对服务器返回的数据进行解密
     ///
     /// - Parameter responseObject: 服务器返回的数据
@@ -22,33 +23,33 @@ class DRequest: Request {
     ///
     /// - Parameter params: 原始参数
     /// - Returns: 返回完整参数
-    func remake(_ params: [String : Any]!) -> [String : Any]! {
+    func remakeParam() -> [String : Any]! {
         
-        var res = params
+        var res = parameters
         let networkInfo = CTTelephonyNetworkInfo()
         let carrier = networkInfo.subscriberCellularProvider
         let nettype = carrier?.carrierName ?? "无运营商"
         
-        res?["user_client_height"] = ScreenHeight()
-        res?["user_client_width"] = ScreenWidth()
-        res?["user_client_memory"] = SYDevice.device.device_memory()
-        res?["user_network"] = SYDeviceObjc.getDeviceNetworkType()
-        res?["network"] = SYDeviceObjc.getDeviceNetworkType()
-        res?["user_os"] = SYDevice.device.sys_name()
-        res?["user_os_version"] = SYDevice.device.os_version()
-        res?["user_model"] = SYDevice.device.device_name()
-        res?["user_client_operator"] = nettype
+        res["user_client_height"] = ScreenHeight()
+        res["user_client_width"] = ScreenWidth()
+        res["user_client_memory"] = SYDevice.device.device_memory()
+        res["user_network"] = SYDeviceObjc.getDeviceNetworkType()
+        res["network"] = SYDeviceObjc.getDeviceNetworkType()
+        res["user_os"] = SYDevice.device.sys_name()
+        res["user_os_version"] = SYDevice.device.os_version()
+        res["user_model"] = SYDevice.device.device_name()
+        res["user_client_operator"] = nettype
 #if DEBUG
-        res?["user_channel"] = "company"
-        res?["channel"] = "company"
+        res["user_channel"] = "company"
+        res["channel"] = "company"
 #else
-        res?["user_channel"] = "AppStore"
-        res?["channel"] = "AppStore"
+        res["user_channel"] = "AppStore"
+        res["channel"] = "AppStore"
 #endif
-        res?["version"] = SYDevice.device.os_version()
-        res?["device_id"] = SYDevice.device.uuid()
-        res?["platform"] = "1"
-        res?["package"] = SYDevice.device.app_bundleId()
+        res["version"] = SYDevice.device.os_version()
+        res["device_id"] = SYDevice.device.uuid()
+        res["platform"] = "1"
+        res["package"] = SYDevice.device.app_bundleId()
         
         return res
     }

@@ -82,8 +82,9 @@ final class HTTPManager: NSObject {
             } else {
                 req = Alamofire.request("\(request.url!)\(request.path!))",
                                       method: method,
-                                      parameters: request.parameters)
+                                      parameters: request.remakeParam())
                     .response(completionHandler: { (response) in
+                        
                         if response.error != nil {
                             observer.onError(response.error!)
                             observer.onCompleted()

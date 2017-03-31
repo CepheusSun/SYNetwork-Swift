@@ -21,9 +21,8 @@ class YRequest: Request {
     ///
     /// - Parameter params: 原始参数
     /// - Returns: 返回完整参数
-    func remake(_ params: [String : Any]!) -> [String : Any]! {
+    func remakeParam() -> [String : Any]! {
         var res = parameters
-        
         res["gps_info"] = SYLocationTool.shared.gps_info_string()
         res["loc_info"] = SYLocationTool.shared.loc_info_string()
         res["cv"] = "IK\(SYDevice.device.app_version()!)_Iphone"
@@ -46,7 +45,6 @@ class YRequest: Request {
         return true
     }
 
-    
     var request: NSMutableURLRequest? {
         return nil
     }

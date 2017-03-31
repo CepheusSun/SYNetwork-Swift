@@ -60,7 +60,6 @@ extension SYLocationTool {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Error while updating location " + error.localizedDescription)
     }
-    
 }
 
 extension SYLocationTool {

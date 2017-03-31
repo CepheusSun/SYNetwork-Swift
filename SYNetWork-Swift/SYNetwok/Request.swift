@@ -46,7 +46,7 @@ public protocol Request {
     ///
     /// - Parameter params: 原始参数
     /// - Returns: 返回完整参数
-    func remake(_ params: [String : Any]!) -> [String: Any]!
+    func remakeParam() -> [String: Any]!
     
     
     /// 对服务器返回的数据进行解密

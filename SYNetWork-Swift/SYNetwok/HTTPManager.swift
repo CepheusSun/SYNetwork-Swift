@@ -41,6 +41,7 @@ final class HTTPManager: NSObject {
                 let data = Cache.shared.fetch(for: request)
                 if data != nil {
                     observer.onNext(Response(data, fromcache: true))
+                    print("fetched from cache")
                     observer.onCompleted()
                     // 获取到缓存， 取消请求
                     return Disposables.create{}

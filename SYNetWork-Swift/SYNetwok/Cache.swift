@@ -39,16 +39,14 @@ public class Cache {
         DiskCache.shared.clean()
     }
     
-    
     private func fetch(for key: String!) -> Data? {
         var data = self.manager.object(forKey: key as AnyObject) as? CacheObject
         if data == nil {
-            DiskCache.shared.fetch(for: key, objectGetHandler: { (obj) in
-                if (obj == nil || (obj?.isEmpty())!) || (obj?.isOutDated())! {
-                    // TO: 删除某条数据
-                }
-                data = obj
-            })
+            let obj = DiskCache.shared.fetch(for: key)
+            if (obj == nil || (obj?.isEmpty())!) || (obj?.isOutDated())! {
+                // TO: 删除某条数据
+            }
+            data = obj
         }
         if data == nil || (data?.isEmpty())! || (data?.isOutDated())! {
             self.delete(for: key)
@@ -140,22 +138,37 @@ fileprivate class DiskCache {
         }
     }
     
-    func fetch(for key: String, objectGetHandler:@escaping ((_ obj:CacheObject?) -> ())) {
+    func fetch(for key: String) -> CacheObject? {
         let path = diskCachePath?.appending(key.encrypt())
         switch storeType {
         case .network:
-            DispatchQueue.global().async {
-                if self.fileManager.fileExists(atPath: path!) {
-                    let data: Data = self.fileManager.contents(atPath: path!)!
-                    let unArchiver = NSKeyedUnarchiver(forReadingWith: data)
-                    let obj = unArchiver.decodeObject(forKey: key.encrypt())
-                    objectGetHandler(obj as? CacheObject)
-                } else {
-                    objectGetHandler(nil)
-                }
+            if self.fileManager.fileExists(atPath: path!) {
+                let data: Data = self.fileManager.contents(atPath: path!)!
+                let unArchiver = NSKeyedUnarchiver(forReadingWith: data)
+                let obj = unArchiver.decodeObject(forKey: key.encrypt())
+                return obj as? CacheObject
+            } else {
+                return nil
             }
         }
     }
+    
+//    func fetch(for key: String, objectGetHandler:@escaping ((_ obj:CacheObject?) -> ())) {
+//        let path = diskCachePath?.appending(key.encrypt())
+//        switch storeType {
+//        case .network:
+//            DispatchQueue.global().async {
+//                if self.fileManager.fileExists(atPath: path!) {
+//                    let data: Data = self.fileManager.contents(atPath: path!)!
+//                    let unArchiver = NSKeyedUnarchiver(forReadingWith: data)
+//                    let obj = unArchiver.decodeObject(forKey: key.encrypt())
+//                    objectGetHandler(obj as? CacheObject)
+//                } else {
+//                    objectGetHandler(nil)
+//                }
+//          }
+//        }
+//    }
     
     func clean() {
         let directory = cachePrex + storeType.rawValue

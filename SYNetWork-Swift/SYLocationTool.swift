@@ -84,14 +84,6 @@ extension SYLocationTool {
             
             myLongitude = (containsPlacemark.location!.coordinate.longitude)
             myLatitude = (containsPlacemark.location!.coordinate.latitude)
-/*
-            // testing show data
-            print("Locality: \(locality)")
-            print("Area: \(area)")
-            print("Country: \(isoCountryCode)")
-            print(myLatitude)
-            print(myLongitude)
- */
         }
     }
 }

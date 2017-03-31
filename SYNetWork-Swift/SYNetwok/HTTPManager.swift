@@ -37,7 +37,13 @@ final class HTTPManager: NSObject {
         return Observable.create({ [weak self] (observer) -> Disposable in
             
             // 1.寻找本地缓存。
-            // TO: 有缓存的情况
+            if request.cacheTimeInterval > 0 {
+                let data = Cache.shared.fetch(for: request)
+                if data != nil {
+                    observer.onNext(Response(data, fromcache: true))
+                    observer.onCompleted()
+                }
+            }
             // 在这里发起请求
             if self?.connectionState == .NotReachable {// 网络不可用
                 // 返回失败的 error
@@ -55,16 +61,20 @@ final class HTTPManager: NSObject {
                 req = Alamofire.request(request.request! as! URLRequestConvertible)
                     .response(completionHandler: { (response) in
                         // 解码
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: { 
-                            observer.onNext(Response())
-                            observer.onNext(Response())
-                            observer.onNext(Response())
-                            observer.onNext(Response())
-                            observer.onNext(Response())
-                            observer.onNext(Response())
+                        if response.error != nil {
+                            observer.onError(response.error!)
                             observer.onCompleted()
-                        })
-                        
+                        }
+                        let resp = Response(response.data!, fromcache: false)
+                        if (resp.error != nil) {
+                            observer.onError(resp.error!)
+                        } else {
+                            DispatchQueue.main.async {
+                                Cache.shared.save(Response.init(response.data, fromcache: false).data, for: request)
+                                observer.onNext(resp)
+                                observer.onCompleted()
+                            }
+                        }
                     })
             } else {
                 req = Alamofire.request("\(request.url!)\(request.path!))",
@@ -80,6 +90,7 @@ final class HTTPManager: NSObject {
                             observer.onError(resp.error!)
                         } else {
                             DispatchQueue.main.async {
+                                Cache.shared.save(response.data, for: request)
                                 observer.onNext(resp)
                                 observer.onCompleted()
                             }

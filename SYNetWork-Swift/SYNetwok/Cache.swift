@@ -41,19 +41,20 @@ public class Cache {
     
     
     private func fetch(for key: String!) -> Data? {
-        let data = self.manager.object(forKey: key as AnyObject) as! CacheObject
-        if data.isEmpty() {
+        var data = self.manager.object(forKey: key as AnyObject) as? CacheObject
+        if data == nil {
             DiskCache.shared.fetch(for: key, objectGetHandler: { (obj) in
-                if (obj?.isEmpty())! || (obj?.isOutDated())! {
+                if (obj == nil || (obj?.isEmpty())!) || (obj?.isOutDated())! {
                     // TO: 删除某条数据
                 }
+                data = obj
             })
         }
-        if data.isEmpty() || data.isOutDated() {
+        if data == nil || (data?.isEmpty())! || (data?.isOutDated())! {
             self.delete(for: key)
             return nil
         }
-        return data.content
+        return data?.content
     }
     
     private func save(_ data: Data!, for key:String!) {
@@ -85,7 +86,7 @@ public class Cache {
         keyArray.forEach { (key) in
             res.append("\(key.lowercased(), request.parameters[key])")
         }
-        return "\(request.path)\(request.url)\(res)"
+        return "\(request.url!)\(request.path!)\(res)"
     }
 }
 
@@ -137,7 +138,7 @@ fileprivate class DiskCache {
         }
     }
     
-    func fetch(for key: String, objectGetHandler:((_ obj:CacheObject?) -> ())?) {
+    func fetch(for key: String, objectGetHandler:@escaping ((_ obj:CacheObject?) -> ())) {
         let path = diskCachePath?.appending(key)
         switch storeType {
         case .network:
@@ -146,16 +147,16 @@ fileprivate class DiskCache {
                     let data: Data = self.fileManager.contents(atPath: path!)!
                     let unArchiver = NSKeyedUnarchiver(forReadingWith: data)
                     let obj = unArchiver.decodeObject(forKey: key)
-                    objectGetHandler?(obj as? CacheObject)
+                    objectGetHandler(obj as? CacheObject)
                 }
-                objectGetHandler?(nil)
+                objectGetHandler(nil)
             }
         }
     }
     
     func clean() {
         let directory = cachePrex + storeType.rawValue
-        try! fileManager.removeItem(atPath: directory)
+        try? fileManager.removeItem(atPath: directory)
     }
 }
 
@@ -169,8 +170,7 @@ private class CacheObject: NSCoding {
     }
     fileprivate(set) var lastUpdatetime: Date!
     
-    convenience init(data: Data) {
-        self.init(data: data)
+    init(data: Data) {
         content = data
     }
     

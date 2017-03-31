@@ -56,7 +56,7 @@ class YRequest: Request {
     }
 
     var cacheTimeInterval: Int {
-        return 0
+        return 1000
     }
     
     var requestType: RequestType {

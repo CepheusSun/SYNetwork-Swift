@@ -31,6 +31,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var cleanBUtton: UIButton!
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        
+//        print(#function, #line, #file, #column)
         HTTPManager.shared.start(YRequest()).asObservable()
             .map({ (response) -> Response in
                 // 在这儿做模型转换

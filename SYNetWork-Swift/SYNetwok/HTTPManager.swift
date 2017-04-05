@@ -68,7 +68,7 @@ final class HTTPManager: NSObject {
                             observer.onError(response.error!)
                             observer.onCompleted()
                         }
-                        let resp = Response(response.data!, fromcache: false)
+                        let resp = Response(request.decode(response.data), fromcache: false)
                         if (resp.error != nil) {
                             observer.onError(resp.error!)
                         } else {
@@ -89,7 +89,7 @@ final class HTTPManager: NSObject {
                             observer.onError(response.error!)
                             observer.onCompleted()
                         }
-                        let resp = Response(response.data!, fromcache: false)
+                        let resp = Response(request.decode(response.data), fromcache: false)
                         if (resp.error != nil) {
                             observer.onError(resp.error!)
                         } else {

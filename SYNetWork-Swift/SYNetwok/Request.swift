@@ -34,7 +34,7 @@ public protocol Request {
     var requestType: RequestType { get }
     var cacheTimeInterval: Int { get }
     var parameters:[String: Any] { get }
-    var request:NSMutableURLRequest? { get }
+    var request:URLRequest? { get }
 
     /// 根据返回的结构判断是否合法
     ///

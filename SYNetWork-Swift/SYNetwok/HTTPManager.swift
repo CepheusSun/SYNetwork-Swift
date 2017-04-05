@@ -61,7 +61,7 @@ final class HTTPManager: NSObject {
             }
             let req: DataRequest?
             if (request.request != nil) {
-                req = Alamofire.request(request.request! as! URLRequestConvertible)
+                req = Alamofire.request(request.request!)
                     .response(completionHandler: { (response) in
                         // 解码
                         if response.error != nil {

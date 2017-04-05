@@ -67,7 +67,7 @@ class DRequest: Request {
         return true
     }
 
-    var request: NSMutableURLRequest? {
+    var request: URLRequest? {
         return nil
     }
 

@@ -45,7 +45,7 @@ class YRequest: Request {
         return true
     }
 
-    var request: NSMutableURLRequest? {
+    var request: URLRequest? {
         return nil
     }
 

@@ -9,6 +9,10 @@
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>hahahaha</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>hahaha</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>haha</string>
 	<key>CFBundleDisplayName</key>
 	<string></string>
 	<key>LSApplicationCategoryType</key>

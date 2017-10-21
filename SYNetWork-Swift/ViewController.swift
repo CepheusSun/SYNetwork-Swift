@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         cleanBUtton .addTarget(self, action: #selector(clean), for: .touchUpInside)
     }
     
-    func clean() {
+    @objc func clean() {
         HTTPManager.cleanAllCache()
     }
 

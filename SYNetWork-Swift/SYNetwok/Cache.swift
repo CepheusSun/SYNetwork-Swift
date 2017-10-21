@@ -40,7 +40,7 @@ public class Cache {
     }
     
     private func fetch(for key: String!) -> Data? {
-        var data = self.manager.object(forKey: key as AnyObject) as? CacheObject
+        var data = self.manager.object(forKey: key as AnyObject) as? CacheedObject
         if data == nil {
             let obj = DiskCache.shared.fetch(for: key)
             if (obj == nil || (obj?.isEmpty())!) || (obj?.isOutDated())! {
@@ -56,9 +56,9 @@ public class Cache {
     }
     
     private func save(_ data: Data!, for key:String!) {
-        var cache: CacheObject? = self.manager.object(forKey: key as AnyObject) as? CacheObject
+        var cache: CacheedObject? = self.manager.object(forKey: key as AnyObject) as? CacheedObject
         if  cache == nil {
-            cache = CacheObject(data: data)
+            cache = CacheedObject(data: data)
         }
         cache!.update(data: data)
         self.manager.setObject(cache!, forKey: key as AnyObject)
@@ -125,7 +125,7 @@ fileprivate class DiskCache {
     }
     
     
-    func store(_ resp: CacheObject!, for key: String) {
+    func store(_ resp: CacheedObject!, for key: String) {
         let data = NSMutableData()
         let keyArchiver = NSKeyedArchiver.init(forWritingWith: data)
         keyArchiver.encode(resp, forKey: key.encrypt())
@@ -138,7 +138,7 @@ fileprivate class DiskCache {
         }
     }
     
-    func fetch(for key: String) -> CacheObject? {
+    func fetch(for key: String) -> CacheedObject? {
         let path = diskCachePath.appending(key.encrypt())
         switch storeType {
         case .network:
@@ -146,7 +146,7 @@ fileprivate class DiskCache {
                 let data: Data = self.fileManager.contents(atPath: path)!
                 let unArchiver = NSKeyedUnarchiver(forReadingWith: data)
                 let obj = unArchiver.decodeObject(forKey: key.encrypt())
-                return obj as? CacheObject
+                return obj as? CacheedObject
             } else {
                 return nil
             }
@@ -185,7 +185,7 @@ fileprivate extension String {
 }
 
 /// 缓存的对象
-private class CacheObject: NSObject ,NSCoding {// 必须继承 NSObject 不然序列化 crash
+class CacheedObject: NSObject ,NSCoding {// 必须继承 NSObject 不然序列化 crash
     
     fileprivate(set) var content: Data? {
         didSet {

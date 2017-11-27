@@ -22,7 +22,7 @@ class SYDevice: NSObject {
     func os_version() -> String! {
         let string = UIDevice.current.systemVersion
         let strArray = string.components(separatedBy: ".")
-        let count = 6 - strArray[1].characters.count
+        let count = 6 - strArray[1].count
         var str = ""
         for _ in 0..<count {
             str.append("0")

@@ -79,7 +79,7 @@ class DRequest: Request {
         return 0
     }
 
-    var requestType: RequestType {
+    var requestType: HTTPMethod {
         return .post
     }
 

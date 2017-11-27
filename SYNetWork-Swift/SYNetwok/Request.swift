@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 /// 请求响应状态
 ///
@@ -19,19 +20,14 @@ enum ResponseStatus: Int {
     case failure = 3
 }
 
-public enum RequestType {
-    case get
-    case post
-}
-
-
+public typealias HTTPMethod = Alamofire.HTTPMethod
 
 /// request 协议, 为每个 api 提供相对应的内容
 public protocol Request {
     
     var url:String! { get }
     var path: String! { get }
-    var requestType: RequestType { get }
+    var requestType: HTTPMethod { get }
     var cacheTimeInterval: Int { get }
     var parameters:[String: Any] { get }
     var request:URLRequest? { get }

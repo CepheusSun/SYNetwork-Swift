@@ -57,7 +57,7 @@ class YRequest: Request {
         return 1000
     }
     
-    var requestType: RequestType {
+    var requestType: HTTPMethod {
         return .get
     }
 

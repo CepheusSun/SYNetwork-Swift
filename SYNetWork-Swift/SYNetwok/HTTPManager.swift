@@ -58,6 +58,7 @@ final class HTTPManager: NSObject {
                 method = .get
             case .post:
                 method = .post
+            default:break
             }
             let req: DataRequest?
             if (request.request != nil) {
